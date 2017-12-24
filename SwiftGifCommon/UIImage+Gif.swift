@@ -94,14 +94,24 @@ extension UIImage {
         let setDelayObject = {
             (key: CFString) -> () in
 
-            if delayObject == nil, let dObj = delayObject, dObj.doubleValue == 0 {
+            let set = {
                 delayObject = unsafeBitCast(
                         CFDictionaryGetValue(
                                 props,
-                                Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()
+                                Unmanaged.passUnretained(key).toOpaque()
                         ),
                         to: AnyObject.self
                 )
+            }
+
+            if delayObject == nil {
+                set()
+            }
+            else if let dObj = delayObject, dObj.doubleValue == 0 {
+                set()
+            }
+            else {
+                // no-op
             }
         }
         setDelayObject(kCGImagePropertyGIFUnclampedDelayTime)
