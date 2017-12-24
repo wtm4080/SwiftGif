@@ -90,7 +90,7 @@ extension UIImage {
         let props: CFDictionary = unsafeBitCast(pImageProps.pointee, to: CFDictionary.self)
 
         // Get delay time
-        var delayObject: AnyObject = DoubleRef(0)
+        var delayObject: AnyObject = Double(0) as AnyObject
         let setDelayObject = {
             (key: CFString) -> () in
 
